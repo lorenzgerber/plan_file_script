@@ -11,7 +11,5 @@ mstatus is a script to add a message to the .plan file of the current user.
 The action login, logout, xlock or unexlock is a mandatory argument to mstatus. All further arguments are interpreted as text message to be added to .plan.
 .SH SEE ALSO
 finger(8)
-.SH BUGS
-No known bugs.
 .SH AUTHOR
 Lorenz Gerber (dv15lgr@cs.umu.se)
