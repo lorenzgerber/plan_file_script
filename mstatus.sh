@@ -1,12 +1,10 @@
 #!/bin/sh
 
-if [ $(( $# < 1 )) -eq 1 ] 
+if [ "$#" -lt 1 ] 
 then
     echo "missing argument, login/logout/xlock/unxlock expected"
     exit 1
 fi
-
-host=`hostname`
 
 case $1 in
     login) action="logged in on"
@@ -21,11 +19,13 @@ case $1 in
        exit 1 ;;
 esac
 
-if [ $(( $# > 1 )) -eq 1 ] 
+host=`hostname`
+
+if [ "$#" -gt 1  ] 
 then
     shift
     message=$1
-    if [ $(( $# >= 2)) -eq 1 ]
+    if [ "$#" -ge 2 ]
     then
 	shift
 	for argument
