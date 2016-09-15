@@ -1,15 +1,46 @@
-.\" Manpage for mstatus.
-.\" Contact dv15lgr@cs.umu.se to correct errors or typos.
-.TH man 1 "13 September 2016" "1.0" "mstatus man page"
-.SH NAME
-mstatus \- add an entry to the users .plan file
-.SH SYNOPSIS
-mstatus {login|logout|xlock|unexlock} [message]
-.SH DESCRIPTION
-mstatus is a script to add a message to the .plan file of the current user.
-.SH OPTIONS
-The action login, logout, xlock or unexlock is a mandatory argument to mstatus. All further arguments are interpreted as text message to be added to .plan.
-.SH SEE ALSO
-finger(8)
-.SH AUTHOR
-Lorenz Gerber (dv15lgr@cs.umu.se)
+#!/bin/sh
+
+if [ "$#" -lt 1 ] 
+then
+    echo "missing argument, login/logout/xlock/unxlock expected"
+    exit 1
+fi
+
+case $1 in
+    login) action="logged in on"
+	   break;;
+    logout) action="logged out from"
+	    break;;
+    xlock)  action="xlocked"
+	    break;;
+    unxlock) action="un-xlocked"
+	     break;;
+    *) echo "wrong argument: login/logout/xlock/unxlock expected"
+       exit 1 ;;
+esac
+
+host=`hostname`
+
+if [ "$#" -gt 1  ] 
+then
+    shift
+    message=$1
+    if [ "$#" -ge 2 ]
+    then
+	shift
+	for argument
+	do
+	    message=$message" "$argument
+	done
+    fi
+
+    touch .plan
+    echo "`date +%y-%m-%d` `date +%H:%M:%S:` $action `hostname` with message \"$message\"" >> .plan
+else
+    touch .plan
+    echo "`date +%y-%m-%d` `date +%H:%M:%S:` $action `hostname`" >> .plan
+fi
+
+tail -n5 .plan | tee .plan 
+
+ 
