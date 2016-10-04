@@ -2,7 +2,7 @@
 
 if [ "$#" -lt 1 ] 
 then
-    echo "missing argument, login/logout/xlock/unxlock expected"
+    >&2 echo "missing argument, login/logout/xlock/unxlock expected"
     exit 1
 fi
 
@@ -15,7 +15,7 @@ case $1 in
 	    break;;
     unxlock) action="un-xlocked"
 	     break;;
-    *) echo "wrong argument: login/logout/xlock/unxlock expected"
+    *) >&2 echo"wrong argument: login/logout/xlock/unxlock expected"
        exit 1 ;;
 esac
 
