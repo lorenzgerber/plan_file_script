@@ -41,6 +41,6 @@ else
     echo "`date +%y-%m-%d` `date +%H:%M:%S:` $action `hostname`" >> .plan
 fi
 
-tail -n5 .plan | tee .plan 
+tail -n5 .plan | tee .plan >> /dev/null 2>&1 
 
  
